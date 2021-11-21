@@ -7,7 +7,6 @@ app.use(cors())
 
 // middleware
 app.use(express.static('.')) // provê arquivos estaticos a partir da aplicaocao desse middleaware
-
 app.use(express.json())
 
   let estados = [
@@ -16,12 +15,12 @@ app.use(express.json())
         nome: 'luci',
         sigla: 'LU'
     }]
+ 
+  // consultar tds
+  app.route('/api').get((req, res) => res.json(estados)) 
 
-  
-  app.route('/api').get((req, res) => { res.json(estados) })
-
-  
-  app.route('/api/:id').get((req, res) => {
+  // consultar por id
+  app.route('/api:id').get((req, res) => {
     const userId = req.params.id
   
     const user = estados.find(user => Number(user.id) === Number(userId))
@@ -45,8 +44,18 @@ app.use(express.json())
 
     res.json('Saved user')
   })
+
+    //hackear
+    app.route('/api').put((req, res) => {
+      estados.filter(u => {
+        u.sigla = "Hackeado"
+      })
+      res.json('Hack user!')
+    })
   
 
+  // ouvindo porta 8080
+  app.listen(8080, () => console.log('Executando... Ouvindo porta 8080'))
 
   //update
 //   app.route('/api/:id').put((req, res) => {
@@ -73,20 +82,3 @@ app.use(express.json())
   
 //     res.json("Updated user")
 //   })
-
-  
-
-  //delete
-//   app.route('/api/:id').delete((req, res) => {
-//     const userId = req.params.id
-  
-//     estados = estados.filter(user => Number(user.id) !== Number(userId))
-  
-//     res.json('Deleted User')
-//   })
-
-
-
-
-// ouvindo porta 8080
-app.listen(8080, () => console.log('Executando... Ouvindo porta 8080'))

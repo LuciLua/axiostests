@@ -25,14 +25,11 @@ function getUser(){
 }
 getUser()
 
-document.querySelector('button').onclick = e => {
-
-var sigla = document.getElementById('sigla').value
-var nome = document.getElementById('nome').value
+document.querySelector('.add').onclick = e => {
 
 let newEstado = {
-    nome: nome,
-    sigla: sigla
+    nome: document.getElementById('nome').value,
+    sigla: document.getElementById('sigla').value
 }
 
 function addNewEstado(){
@@ -42,9 +39,30 @@ function addNewEstado(){
         return resp
     })
     .catch(error => console.log('erro:'+ error))
-    }
+}
     
    addNewEstado()   
+}
+
+// delete
+
+document.querySelector('.del').onclick = e => {
+
+let delEstado = {
+    nome: 'h',
+    sigla: 'h'
+}
+
+function delTheEstado(){
+    axios.put(url, delEstado)
+    .then(resp => {
+        console.log(resp.data)
+        return resp
+    })
+    .catch(error => console.log('erro:'+ error))
+}
+    
+    delTheEstado()   
 }
 
 
